@@ -3,296 +3,835 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Deepika V — Portfolio</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Syne+Mono&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<title>Deepika V  — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
 :root{
-  --bg:#060c1a; --bg2:#0a1225; --bg3:#0f1a35;
-  --text:#e8f0ff; --muted:#5a7aa8;
-  --blue:#3b82f6; --blue2:#60a5fa; --blue3:#93c5fd;
-  --glow:rgba(59,130,246,0.18); --glow2:rgba(59,130,246,0.07);
-  --border:rgba(59,130,246,0.2); --border2:rgba(59,130,246,0.08);
+  --bg:#0f172a; --bg2:#111827; --bg3:#1e293b;
+  --text:#f8fafc; --muted:#94a3b8;
+  --pink:#ec4899; --pink2:#f472b6;
+  --pink-glow:rgba(236,72,153,0.18);
+  --pink-glow2:rgba(236,72,153,0.08);
+  --border:rgba(236,72,153,0.18);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:'Manrope',sans-serif;overflow-x:hidden;cursor:none}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;overflow-x:hidden;cursor:none}
 
-/* starfield bg */
-body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 80% 60% at 20% 20%,rgba(59,130,246,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 80% at 80% 80%,rgba(99,102,241,0.05) 0%,transparent 60%);pointer-events:none;z-index:0}
-
-/* PRELOADER */
-#preloader{position:fixed;inset:0;z-index:99999;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2rem;transition:opacity .6s,visibility .6s}
+/* ── PRELOADER ── */
+#preloader{
+  position:fixed;inset:0;z-index:99999;
+  background:var(--bg);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2rem;
+  transition:opacity 0.6s ease, visibility 0.6s ease;
+}
 #preloader.hide{opacity:0;visibility:hidden}
-.pre-logo{font-family:'Syne',sans-serif;font-size:2.8rem;font-weight:800;color:var(--blue);letter-spacing:-.02em;animation:preP 1.5s ease-in-out infinite}
-@keyframes preP{0%,100%{text-shadow:0 0 24px rgba(59,130,246,.4)}50%{text-shadow:0 0 56px rgba(59,130,246,.9),0 0 100px rgba(59,130,246,.2)}}
-.pre-bar-wrap{width:220px;height:2px;background:var(--border2);border-radius:99px;overflow:hidden}
-.pre-bar{height:100%;width:0;background:linear-gradient(90deg,var(--blue),var(--blue2));border-radius:99px;animation:preBarFill 2s cubic-bezier(.4,0,.2,1) forwards}
+.pre-logo{
+  font-family:'Playfair Display',serif;font-size:2.8rem;font-weight:900;
+  color:var(--pink);letter-spacing:-0.02em;
+  animation:preLogoPulse 1.5s ease-in-out infinite;
+}
+@keyframes preLogoPulse{0%,100%{text-shadow:0 0 20px rgba(236,72,153,0.4)}50%{text-shadow:0 0 48px rgba(236,72,153,0.9)}}
+.pre-bar-wrap{width:220px;height:3px;background:rgba(255,255,255,0.07);border-radius:99px;overflow:hidden}
+.pre-bar{height:100%;width:0;background:linear-gradient(90deg,var(--pink),var(--pink2));border-radius:99px;animation:preBarFill 2s cubic-bezier(.4,0,.2,1) forwards}
 @keyframes preBarFill{0%{width:0}100%{width:100%}}
-.pre-dots{display:flex;gap:.5rem}
-.pre-dot{width:7px;height:7px;border-radius:50%;background:var(--blue);animation:preDot 1.2s ease-in-out infinite}
-.pre-dot:nth-child(2){animation-delay:.2s}.pre-dot:nth-child(3){animation-delay:.4s}
-@keyframes preDot{0%,100%{opacity:.2;transform:scale(.8)}50%{opacity:1;transform:scale(1.3)}}
-.pre-label{font-family:'Syne Mono',monospace;font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+.pre-dots{display:flex;gap:0.5rem}
+.pre-dot{width:8px;height:8px;border-radius:50%;background:var(--pink);animation:preDot 1.2s ease-in-out infinite}
+.pre-dot:nth-child(2){animation-delay:.2s}
+.pre-dot:nth-child(3){animation-delay:.4s}
+@keyframes preDot{0%,100%{opacity:0.2;transform:scale(0.8)}50%{opacity:1;transform:scale(1.2)}}
+.pre-label{font-family:'JetBrains Mono',monospace;font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted)}
 
-/* EXIT */
-#exitLoader{position:fixed;inset:0;z-index:99998;pointer-events:none;display:flex}
-.exit-panel{flex:1;transform:scaleY(0);transform-origin:bottom;transition:transform .45s cubic-bezier(.77,0,.18,1)}
-.exit-panel:nth-child(1){background:var(--bg);transition-delay:0s}
-.exit-panel:nth-child(2){background:var(--blue);transition-delay:.06s}
-.exit-panel:nth-child(3){background:var(--bg);transition-delay:.12s}
-.exit-panel:nth-child(4){background:var(--blue);transition-delay:.08s}
+/* ── PAGE-EXIT LOADER (post-loader) ── */
+#exitLoader{
+  position:fixed;inset:0;z-index:99998;
+  pointer-events:none;
+  display:flex;
+}
+.exit-panel{
+  flex:1;background:var(--pink);
+  transform:scaleY(0);transform-origin:bottom;
+  transition:transform 0.5s cubic-bezier(.77,0,.18,1);
+}
+.exit-panel:nth-child(1){transition-delay:0s;background:#0f172a}
+.exit-panel:nth-child(2){transition-delay:0.06s;background:var(--pink)}
+.exit-panel:nth-child(3){transition-delay:0.12s;background:#0f172a}
+.exit-panel:nth-child(4){transition-delay:0.08s;background:var(--pink)}
 #exitLoader.active .exit-panel{transform:scaleY(1)}
 
-/* CURSOR */
-.cursor{position:fixed;width:10px;height:10px;background:var(--blue);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);box-shadow:0 0 10px var(--blue)}
-.cursor-ring{position:fixed;width:32px;height:32px;border:1.5px solid var(--blue);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:.5}
+/* ── CURSOR ── */
+.cursor{position:fixed;width:12px;height:12px;background:var(--pink);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
+.cursor-ring{position:fixed;width:36px;height:36px;border:1.5px solid var(--pink);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:0.5}
 
-::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--blue);border-radius:99px}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--pink);border-radius:99px}
 
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 3rem;background:rgba(6,12,26,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
-.nav-logo{font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:800;color:var(--blue);letter-spacing:-.02em}
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.1rem 3rem;
+  background:rgba(15,23,42,0.82);backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:900;color:var(--pink)}
 .nav-links{display:flex;gap:2rem;list-style:none}
-.nav-links a{color:var(--muted);text-decoration:none;font-size:.8rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;transition:color .2s;position:relative}
-.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1.5px;background:var(--blue);transition:width .3s}
-.nav-links a:hover{color:var(--blue)}.nav-links a:hover::after{width:100%}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:0.85rem;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;transition:color .25s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1.5px;background:var(--pink);transition:width .3s}
+.nav-links a:hover{color:var(--pink)}
+.nav-links a:hover::after{width:100%}
 .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:210}
-.hamburger span{width:22px;height:2px;background:var(--blue);border-radius:2px;transition:all .3s}
+.hamburger span{width:24px;height:2px;background:var(--pink);border-radius:2px;transition:all .3s}
 
-/* HERO — split screen */
-#hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden;z-index:1}
-.hero-left{display:flex;flex-direction:column;justify-content:center;padding:8rem 4rem 4rem 3rem;position:relative}
-.hero-left::after{content:'';position:absolute;right:0;top:10%;bottom:10%;width:1px;background:linear-gradient(to bottom,transparent,var(--blue),transparent)}
-.hero-right{display:flex;align-items:center;justify-content:center;padding:8rem 3rem 4rem 4rem;background:rgba(59,130,246,.03);position:relative}
-.hero-right::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 70% at 50% 50%,rgba(59,130,246,.08),transparent 70%)}
-.hero-tag{display:inline-flex;align-items:center;gap:.5rem;background:var(--glow2);border:1px solid var(--border);border-radius:99px;padding:.3rem .9rem;font-size:.7rem;font-family:'Syne Mono',monospace;color:var(--blue);letter-spacing:.1em;text-transform:uppercase;margin-bottom:1.8rem;animation:fadeUp .6s .1s both}
-.hero-tag::before{content:'●';font-size:.55em;animation:blink 1.4s infinite}
+/* ── HERO ── */
+#hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding:6rem 3rem 4rem}
+.hero-bg{position:absolute;inset:0;z-index:0;
+  background:radial-gradient(ellipse 60% 55% at 80% 45%,rgba(236,72,153,0.15) 0%,transparent 70%),
+  radial-gradient(ellipse 40% 60% at 15% 70%,rgba(99,102,241,0.07) 0%,transparent 70%)}
+.hero-grid-bg{position:absolute;inset:0;z-index:0;opacity:0.04;
+  background-image:linear-gradient(var(--pink) 1px,transparent 1px),linear-gradient(90deg,var(--pink) 1px,transparent 1px);
+  background-size:52px 52px}
+.hero-inner{position:relative;z-index:1;max-width:1180px;margin:0 auto;width:100%;display:flex;align-items:center;gap:4rem;justify-content:space-between}
+.hero-text{flex:1;min-width:0}
+.hero-tag{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:var(--pink-glow2);border:1px solid var(--border);border-radius:99px;
+  padding:.35rem 1rem;font-size:.76rem;font-family:'JetBrains Mono',monospace;
+  color:var(--pink);letter-spacing:.06em;text-transform:uppercase;margin-bottom:1.8rem;
+  animation:fadeDown .7s .1s both}
+.hero-tag::before{content:'●';font-size:.6em;animation:blink 1.4s infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
-.hero-name{font-family:'Syne',sans-serif;font-size:clamp(2.6rem,5vw,4.5rem);font-weight:800;line-height:1.02;letter-spacing:-.03em;animation:fadeUp .7s .2s both}
-.hero-name .blue{color:var(--blue)}
-.hero-subtitle{margin-top:1.3rem;font-size:clamp(.88rem,1.5vw,1rem);color:var(--muted);font-weight:300;line-height:1.75;max-width:440px;animation:fadeUp .7s .35s both}
-.hero-ctas{display:flex;flex-wrap:wrap;gap:1rem;margin-top:2.2rem;animation:fadeUp .7s .5s both}
-.btn-blue{display:inline-flex;align-items:center;gap:.5rem;padding:.78rem 1.8rem;border-radius:8px;background:var(--blue);color:#fff;font-weight:600;font-size:.85rem;text-decoration:none;border:none;cursor:pointer;transition:all .25s;box-shadow:0 0 20px rgba(59,130,246,.3)}
-.btn-blue:hover{transform:translateY(-2px);box-shadow:0 0 36px rgba(59,130,246,.55)}
-.btn-outline-blue{display:inline-flex;align-items:center;gap:.5rem;padding:.78rem 1.8rem;border-radius:8px;background:transparent;color:var(--blue);font-weight:600;font-size:.85rem;text-decoration:none;border:1.5px solid var(--blue);cursor:pointer;transition:all .25s}
-.btn-outline-blue:hover{background:var(--glow);transform:translateY(-2px)}
-.hero-socials{display:flex;gap:.8rem;margin-top:2.4rem;animation:fadeUp .7s .65s both}
-.social-link{width:38px;height:38px;border-radius:8px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted);text-decoration:none;transition:all .22s;background:var(--glow2)}
-.social-link:hover{color:var(--blue);border-color:var(--blue);transform:translateY(-2px)}
-/* hero right photo */
-.hero-photo-wrap{position:relative;z-index:1;animation:fadeUp .9s .4s both}
-.hero-photo-frame{width:clamp(240px,28vw,340px);aspect-ratio:3/4;border-radius:16px 16px 48px 16px;background:var(--bg3);border:1.5px solid var(--border);overflow:hidden;position:relative;box-shadow:0 24px 80px rgba(59,130,246,.2)}
-.hero-photo-frame::before{content:'';position:absolute;inset:0;background:linear-gradient(160deg,rgba(59,130,246,.12) 0%,transparent 55%);z-index:1;pointer-events:none}
-.hero-photo-frame img{width:100%;height:100%;object-fit:cover;object-position:top}
-.hero-photo-inner{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:6rem}
-.hero-photo-badge{position:absolute;bottom:-1rem;left:-1rem;background:var(--bg2);border:1.5px solid var(--border);border-radius:12px;padding:.65rem 1rem;display:flex;align-items:center;gap:.5rem;box-shadow:0 8px 28px rgba(0,0,0,.5)}
-.hero-photo-badge-dot{width:7px;height:7px;border-radius:50%;background:#22c55e;animation:blink 2s infinite}
-.hero-photo-badge-text{font-size:.74rem;font-weight:600;color:var(--text)}
-.hero-photo-tag{position:absolute;top:-1rem;right:-1rem;background:var(--blue);color:#fff;border-radius:8px;padding:.45rem .9rem;font-size:.7rem;font-weight:700;box-shadow:0 4px 20px rgba(59,130,246,.5)}
-/* numbers floating */
-.hero-numbers{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:2.5rem;animation:fadeUp .8s .7s both}
-.hero-num-card{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:1rem 1.2rem;text-align:center}
-.hero-num{font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:800;color:var(--blue)}
-.hero-num-label{font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-top:.2rem}
+.hero-name{font-family:'Playfair Display',serif;font-size:clamp(2.6rem,5.5vw,5rem);font-weight:900;line-height:1.04;letter-spacing:-.03em;animation:fadeUp .8s .2s both}
+.hero-name .pink{color:var(--pink)}
+.hero-subtitle{margin-top:1.4rem;font-size:clamp(.95rem,1.8vw,1.15rem);color:var(--muted);font-weight:300;line-height:1.72;max-width:500px;animation:fadeUp .8s .35s both}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:1rem;margin-top:2.4rem;animation:fadeUp .8s .5s both}
+.btn-pink{display:inline-flex;align-items:center;gap:.5rem;padding:.8rem 1.8rem;border-radius:99px;background:var(--pink);color:#fff;font-weight:600;font-size:.9rem;text-decoration:none;border:none;cursor:pointer;transition:all .28s;box-shadow:0 0 24px rgba(236,72,153,.35)}
+.btn-pink:hover{transform:translateY(-2px);box-shadow:0 0 40px rgba(236,72,153,.6)}
+.btn-outline{display:inline-flex;align-items:center;gap:.5rem;padding:.8rem 1.8rem;border-radius:99px;background:transparent;color:var(--pink);font-weight:600;font-size:.9rem;text-decoration:none;border:1.5px solid var(--pink);cursor:pointer;transition:all .28s}
+.btn-outline:hover{background:var(--pink-glow);transform:translateY(-2px)}
+.hero-socials{display:flex;gap:.9rem;margin-top:2.6rem;animation:fadeUp .8s .65s both}
+.social-link{width:42px;height:42px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted);text-decoration:none;font-size:1rem;transition:all .25s;background:var(--pink-glow2)}
+.social-link:hover{color:var(--pink);border-color:var(--pink);background:var(--pink-glow);transform:translateY(-3px)}
 
-.hero-scroll{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.4rem;color:var(--muted);font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;z-index:2}
-.scroll-line{width:1px;height:44px;background:linear-gradient(to bottom,transparent,var(--blue));animation:scrollDrop 1.8s 1.5s infinite}
+/* Hero Photo */
+.hero-photo-wrap{flex-shrink:0;animation:fadeUp .9s .4s both;position:relative}
+.hero-photo-frame{
+  width:clamp(240px,28vw,340px);aspect-ratio:3/4;
+  border-radius:2rem 2rem 6rem 2rem;
+  background:var(--bg3);border:2px solid var(--border);
+  overflow:hidden;position:relative;
+  box-shadow:0 24px 80px rgba(236,72,153,.2);
+}
+.hero-photo-frame::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(160deg,rgba(236,72,153,.15) 0%,transparent 60%);
+  z-index:1}
+.hero-photo-inner{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:7rem}
+.hero-photo-badge{
+  position:absolute;bottom:-1rem;left:-1rem;
+  background:var(--bg3);border:1.5px solid var(--border);
+  border-radius:1.1rem;padding:.7rem 1.1rem;
+  display:flex;align-items:center;gap:.6rem;
+  box-shadow:0 8px 28px rgba(0,0,0,.4)}
+.hero-photo-badge-dot{width:8px;height:8px;border-radius:50%;background:#22c55e;animation:blink 2s infinite}
+.hero-photo-badge-text{font-size:.78rem;font-weight:600;color:var(--text)}
+.hero-photo-tag{
+  position:absolute;top:-1rem;right:-1rem;
+  background:var(--pink);color:#fff;
+  border-radius:1rem;padding:.55rem 1rem;font-size:.75rem;font-weight:700;
+  box-shadow:0 6px 24px rgba(236,72,153,.4)}
+
+.hero-scroll{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.4rem;color:var(--muted);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;animation:fadeUp 1s 1.3s both}
+.scroll-line{width:1px;height:52px;background:linear-gradient(to bottom,transparent,var(--pink));animation:scrollDrop 1.8s 1.6s infinite}
 @keyframes scrollDrop{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 
-/* SECTIONS */
-section{padding:6rem 3rem;position:relative;z-index:1}
+/* ── SECTIONS ── */
+section{padding:6rem 3rem}
+.section-label{font-family:'JetBrains Mono',monospace;font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--pink);margin-bottom:.75rem}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:900;line-height:1.1;letter-spacing:-.02em;margin-bottom:1rem}
+.section-sub{color:var(--muted);font-size:1rem;font-weight:300;max-width:520px;line-height:1.7;margin-bottom:3.5rem}
 .container{max-width:1180px;margin:0 auto}
-.section-label{font-family:'Syne Mono',monospace;font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--blue);margin-bottom:.6rem}
-.section-title{font-family:'Syne',sans-serif;font-size:clamp(1.9rem,3.8vw,2.8rem);font-weight:800;line-height:1.08;letter-spacing:-.02em;margin-bottom:.8rem}
-.section-sub{color:var(--muted);font-size:.92rem;max-width:500px;line-height:1.72;margin-bottom:3rem}
 
-/* ABOUT */
-#about{background:var(--bg2);border-top:1px solid var(--border)}
-.about-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:4rem;align-items:start}
-.about-text p{color:var(--muted);line-height:1.82;margin-bottom:1rem;font-size:.93rem}
-.about-stats{display:flex;gap:2rem;margin-top:2rem;padding:1.5rem;background:var(--bg3);border:1px solid var(--border);border-radius:12px}
-.stat-num{font-family:'Syne',sans-serif;font-size:2.2rem;font-weight:800;color:var(--blue);line-height:1}
-.stat-label{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-top:.2rem}
-.about-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.4rem}
-.tag{padding:.28rem .85rem;border-radius:99px;font-size:.73rem;font-weight:500;background:var(--glow2);border:1px solid var(--border);color:var(--blue2)}
-.about-cards{display:flex;flex-direction:column;gap:1rem}
-.about-card{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:1.2rem 1.4rem;transition:.25s}
-.about-card:hover{border-color:var(--blue);transform:translateX(4px);box-shadow:0 0 20px rgba(59,130,246,.1)}
-.about-card h4{font-size:.9rem;font-weight:600;margin-bottom:.35rem}
-.about-card p{font-size:.78rem;color:var(--muted);line-height:1.6}
+/* ── ABOUT ── */
+#about{background:var(--bg2)}
+.about-grid{
+  display:grid;
+  grid-template-columns:1.2fr 0.8fr;
+  gap:4rem;
+  align-items:start;
+}
+.about-left{
+  display:flex;
+  flex-direction:column;
+}
 
-/* SKILLS */
+/* stats box */
+.about-stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  margin-top:2rem;
+  padding:1.5rem;
+  background:var(--bg3);
+  border:1px solid var(--border);
+  border-radius:1rem;
+}
+
+/* right cards */
+.about-cards{
+  display:flex;
+  flex-direction:column;
+  gap:1.2rem;
+}
+
+.about-card{
+  background:var(--bg3);
+  border:1px solid var(--border);
+  padding:1.2rem 1.4rem;
+  border-radius:1rem;
+  transition:0.3s;
+}
+
+.about-card:hover{
+  border-color:var(--pink);
+  transform:translateX(5px);
+}
+
+.about-card h4{
+  font-size:0.95rem;
+  margin-bottom:0.4rem;
+}
+
+.about-card p{
+  font-size:0.82rem;
+  color:var(--muted);
+  line-height:1.6;
+}
+.about-avatar{aspect-ratio:1;border-radius:2rem;background:var(--bg3);border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:5.5rem;position:relative;overflow:hidden;max-width:300px}
+.about-avatar::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 65% 30%,rgba(236,72,153,.22),transparent 65%)}
+.about-badge{position:absolute;bottom:-.8rem;right:-.8rem;background:var(--pink);color:#fff;border-radius:1rem;padding:.6rem 1.1rem;font-size:.8rem;font-weight:600;box-shadow:0 8px 28px rgba(236,72,153,.45)}
+.about-img-wrap{position:relative}
+.about-stats{display:flex;gap:2rem;margin-top:2.5rem;flex-wrap:wrap}
+.stat{text-align:center}
+.stat-num{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;color:var(--pink)}
+.stat-label{font-size:.74rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.about-text h3{font-family:'Playfair Display',serif;font-size:1.5rem;margin-bottom:1rem}
+.about-text p{color:var(--muted);line-height:1.82;margin-bottom:1rem;font-size:.95rem}
+.about-tags{display:flex;flex-wrap:wrap;gap:.55rem;margin-top:1.4rem}
+.tag{padding:.32rem .9rem;border-radius:99px;font-size:.76rem;font-weight:500;background:var(--pink-glow2);border:1px solid var(--border);color:var(--pink2)}
+
+/* ── SKILLS ── */
 #skills{background:var(--bg)}
 .skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:1.5rem}
-.skill-card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:1.8rem;transition:.25s;position:relative;overflow:hidden}
-.skill-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--blue),transparent)}
-.skill-card:hover{border-color:var(--blue);transform:translateY(-4px);box-shadow:0 12px 40px rgba(59,130,246,.12)}
-.skill-icon{font-size:1.9rem;margin-bottom:.9rem}
-.skill-title{font-family:'Syne',sans-serif;font-weight:700;font-size:.95rem;margin-bottom:1.2rem;color:var(--blue2)}
-.skill-bar-label{display:flex;justify-content:space-between;font-size:.75rem;color:var(--muted);margin-bottom:.28rem}
-.skill-bar-track{height:4px;background:rgba(59,130,246,.08);border-radius:99px;overflow:hidden;margin-bottom:.75rem}
-.skill-bar-fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--blue2));border-radius:99px;width:0;transition:width 1.3s cubic-bezier(.4,0,.2,1)}
+.skill-card{background:var(--bg3);border:1px solid var(--border);border-radius:1.25rem;padding:1.8rem;transition:all .3s;position:relative;overflow:hidden}
+.skill-card::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at top left,var(--pink-glow2),transparent 70%);opacity:0;transition:opacity .3s}
+.skill-card:hover{transform:translateY(-5px);border-color:var(--pink);box-shadow:0 12px 40px var(--pink-glow)}
+.skill-card:hover::before{opacity:1}
+.skill-icon{font-size:2rem;margin-bottom:1rem}
+.skill-title{font-weight:700;font-size:1rem;margin-bottom:1.2rem}
+.skill-bar-label{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted);margin-bottom:.3rem}
+.skill-bar-track{height:5px;background:rgba(255,255,255,.07);border-radius:99px;overflow:hidden;margin-bottom:.75rem}
+.skill-bar-fill{height:100%;background:linear-gradient(90deg,var(--pink),var(--pink2));border-radius:99px;width:0;transition:width 1.3s cubic-bezier(.4,0,.2,1)}
 
-/* PROJECTS */
-#projects{background:var(--bg2);border-top:1px solid var(--border)}
-.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.6rem}
-.project-card{background:var(--bg3);border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:.3s;cursor:pointer}
-.project-card:hover{border-color:var(--blue);transform:translateY(-6px);box-shadow:0 20px 60px rgba(59,130,246,.15)}
-.project-thumb{height:165px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:3rem;position:relative;overflow:hidden}
-.project-thumb::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(59,130,246,.1),transparent 65%);opacity:0;transition:.3s}
+/* ── PROJECTS ── */
+#projects{background:var(--bg2)}
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.8rem}
+.project-card{background:var(--bg3);border:1px solid var(--border);border-radius:1.5rem;overflow:hidden;transition:all .35s;cursor:pointer;position:relative}
+.project-card:hover{transform:translateY(-8px);border-color:var(--pink);box-shadow:0 20px 60px var(--pink-glow)}
+.project-thumb{height:175px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:3.5rem;position:relative;overflow:hidden}
+.project-thumb::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,var(--pink-glow),transparent 65%);opacity:0;transition:opacity .35s}
 .project-card:hover .project-thumb::before{opacity:1}
-.project-overlay{position:absolute;inset:0;background:rgba(6,12,26,.92);display:flex;align-items:center;justify-content:center;gap:.7rem;opacity:0;transition:.25s;flex-direction:column}
+.project-overlay{position:absolute;inset:0;background:rgba(15,23,42,.91);display:flex;align-items:center;justify-content:center;gap:.75rem;opacity:0;transition:opacity .3s;flex-direction:column}
 .project-card:hover .project-overlay{opacity:1}
-.overlay-btn{padding:.52rem 1.3rem;border-radius:8px;font-size:.78rem;font-weight:600;text-decoration:none;transition:.2s;display:inline-flex;align-items:center;gap:.4rem;cursor:pointer;font-family:'Manrope',sans-serif}
-.overlay-btn.github{background:var(--blue);color:#fff;border:none}
-.overlay-btn.notion-btn{background:transparent;color:var(--blue2);border:1px solid var(--border)}
-.overlay-btn:hover{transform:scale(1.05)}
-.project-body{padding:1.4rem}
-.project-cat{font-family:'Syne Mono',monospace;font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin-bottom:.35rem}
-.project-title{font-family:'Syne',sans-serif;font-weight:700;font-size:.95rem;margin-bottom:.5rem}
-.project-desc{color:var(--muted);font-size:.8rem;line-height:1.65;margin-bottom:.9rem}
-.project-tags{display:flex;flex-wrap:wrap;gap:.35rem}
-.ptag{padding:.2rem .6rem;border-radius:99px;font-size:.68rem;background:var(--glow2);border:1px solid var(--border);color:var(--blue2)}
-.notion-icon{width:15px;height:15px;flex-shrink:0}
+.overlay-btn{padding:.55rem 1.3rem;border-radius:99px;font-size:.8rem;font-weight:600;text-decoration:none;transition:all .2s;display:inline-flex;align-items:center;gap:.4rem;cursor:pointer;font-family:'DM Sans',sans-serif}
+.overlay-btn.github{background:var(--pink);color:#fff;border:none}
+.overlay-btn.notion-btn{
+  background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.35);
+  display:inline-flex;align-items:center;gap:.5rem}
+.overlay-btn.notion-btn:hover{background:rgba(255,255,255,.1);border-color:#fff}
+.overlay-btn:hover{transform:scale(1.06)}
+.project-body{padding:1.5rem}
+.project-cat{font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--pink);margin-bottom:.4rem}
+.project-title{font-weight:700;font-size:1rem;margin-bottom:.6rem}
+.project-desc{color:var(--muted);font-size:.83rem;line-height:1.65;margin-bottom:1rem}
+.project-tags{display:flex;flex-wrap:wrap;gap:.4rem}
+.ptag{padding:.22rem .65rem;border-radius:99px;font-size:.7rem;background:var(--pink-glow2);border:1px solid var(--border);color:var(--pink2)}
 
-/* HOBBIES */
+/* Notion icon */
+.notion-icon{width:16px;height:16px;flex-shrink:0}
+
+/* ── HOBBIES ── */
 #hobbies{background:var(--bg)}
-.hobbies-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:1rem}
-.hobby-card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:1.7rem 1.2rem;text-align:center;transition:.25s}
-.hobby-card:hover{border-color:var(--blue);transform:translateY(-4px);box-shadow:0 8px 28px rgba(59,130,246,.1)}
-.hobby-emoji{font-size:2rem;margin-bottom:.7rem;display:block}
-.hobby-name{font-family:'Syne',sans-serif;font-weight:700;font-size:.88rem;margin-bottom:.3rem}
-.hobby-desc{color:var(--muted);font-size:.74rem;line-height:1.5}
+.hobbies-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1.1rem}
+.hobby-card{background:var(--bg3);border:1px solid var(--border);border-radius:1.25rem;padding:1.7rem 1.2rem;text-align:center;transition:all .3s}
+.hobby-card:hover{border-color:var(--pink);transform:translateY(-5px);box-shadow:0 8px 30px var(--pink-glow)}
+.hobby-emoji{font-size:2.2rem;margin-bottom:.75rem;display:block}
+.hobby-name{font-weight:600;font-size:.9rem;margin-bottom:.35rem}
+.hobby-desc{color:var(--muted);font-size:.76rem;line-height:1.5}
 
-/* RESUME */
-#resume{background:var(--bg2);border-top:1px solid var(--border)}
+/* ── RESUME ── */
+#resume{background:var(--bg2)}
 .resume-layout{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem}
-.resume-col h3{font-family:'Syne',sans-serif;font-size:1.15rem;font-weight:700;margin-bottom:1.5rem;display:flex;align-items:center;gap:.6rem}
-.resume-col h3 span{color:var(--blue)}
+.resume-col h3{font-family:'Playfair Display',serif;font-size:1.25rem;margin-bottom:1.6rem;display:flex;align-items:center;gap:.6rem}
+.resume-col h3 span{color:var(--pink)}
 .timeline{position:relative;padding-left:1.5rem}
-.timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:1.5px;background:linear-gradient(to bottom,var(--blue),transparent)}
-.timeline-item{position:relative;margin-bottom:1.8rem}
-.timeline-dot{position:absolute;left:-1.55rem;top:.3rem;width:9px;height:9px;border-radius:50%;background:var(--blue);box-shadow:0 0 10px rgba(59,130,246,.6)}
-.timeline-year{font-family:'Syne Mono',monospace;font-size:.68rem;color:var(--blue);letter-spacing:.1em;margin-bottom:.25rem}
-.timeline-title{font-weight:600;font-size:.9rem;margin-bottom:.2rem}
-.timeline-place{color:var(--muted);font-size:.78rem;margin-bottom:.4rem}
-.timeline-desc{color:var(--muted);font-size:.78rem;line-height:1.6}
+.timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:1.5px;background:linear-gradient(to bottom,var(--pink),transparent)}
+.timeline-item{position:relative;margin-bottom:2rem}
+.timeline-dot{position:absolute;left:-1.55rem;top:.3rem;width:10px;height:10px;border-radius:50%;background:var(--pink);box-shadow:0 0 10px rgba(236,72,153,.55)}
+.timeline-year{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--pink);letter-spacing:.1em;margin-bottom:.28rem}
+.timeline-title{font-weight:600;font-size:.94rem;margin-bottom:.22rem}
+.timeline-place{color:var(--muted);font-size:.8rem;margin-bottom:.45rem}
+.timeline-desc{color:var(--muted);font-size:.8rem;line-height:1.62}
 
-/* CONTACT */
+/* Certifications grid — right column */
+.cert-section-label{font-family:'Playfair Display',serif;font-size:1.25rem;margin-bottom:1.6rem;display:flex;align-items:center;gap:.6rem}
+.cert-section-label span{color:var(--pink)}
+.cert-grid{display:grid;grid-template-columns:1fr 1fr;gap:.85rem}
+.cert-card{background:var(--bg);border:1px solid var(--border);border-radius:.85rem;padding:.9rem;font-size:.8rem;font-weight:500;display:flex;align-items:center;gap:.6rem;transition:all .25s}
+.cert-card:hover{border-color:var(--pink);color:var(--pink)}
+.cert-icon{font-size:1.2rem;flex-shrink:0}
+
+/* ── CONTACT ── */
 #contact{background:var(--bg)}
 .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
-.contact-info p{color:var(--muted);line-height:1.82;margin-bottom:2rem;font-size:.92rem}
-.contact-links{display:flex;flex-direction:column;gap:.85rem}
-.contact-link-item{display:flex;align-items:center;gap:1rem;padding:.95rem 1.2rem;background:var(--bg2);border:1px solid var(--border);border-radius:12px;text-decoration:none;color:var(--text);transition:.22s}
-.contact-link-item:hover{border-color:var(--blue);transform:translateX(5px);box-shadow:0 0 20px rgba(59,130,246,.08)}
-.contact-link-icon{font-size:1.2rem}
-.contact-link-type{font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
-.contact-link-val{font-size:.88rem;font-weight:500}
+.contact-info p{color:var(--muted);line-height:1.82;margin-bottom:2rem;font-size:.95rem}
+.contact-links{display:flex;flex-direction:column;gap:.9rem}
+.contact-link-item{display:flex;align-items:center;gap:1rem;padding:1rem 1.3rem;border-radius:1rem;background:var(--bg3);border:1px solid var(--border);text-decoration:none;color:var(--text);transition:all .25s}
+.contact-link-item:hover{border-color:var(--pink);transform:translateX(5px)}
+.contact-link-icon{font-size:1.25rem}
+.contact-link-type{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.contact-link-val{font-size:.9rem;font-weight:500}
 .contact-form{display:flex;flex-direction:column;gap:1.1rem}
-.form-label{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.3rem;display:block}
-.form-input,.form-textarea{width:100%;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:.85rem 1rem;color:var(--text);font-family:'Manrope',sans-serif;font-size:.88rem;outline:none;transition:border-color .2s,box-shadow .2s;resize:none}
-.form-input:focus,.form-textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(59,130,246,.1)}
-.form-textarea{height:120px}
-.form-send{align-self:flex-start;padding:.82rem 2rem;border-radius:8px;background:var(--blue);color:#fff;font-weight:600;font-size:.88rem;border:none;cursor:pointer;transition:all .25s;box-shadow:0 0 20px rgba(59,130,246,.25)}
-.form-send:hover{transform:translateY(-2px);box-shadow:0 0 36px rgba(59,130,246,.5)}
+.form-label{font-size:.76rem;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:.35rem;display:block}
+.form-input,.form-textarea{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:.75rem;padding:.85rem 1rem;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.9rem;outline:none;transition:border-color .25s,box-shadow .25s;resize:none}
+.form-input:focus,.form-textarea:focus{border-color:var(--pink);box-shadow:0 0 0 3px rgba(236,72,153,.12)}
+.form-textarea{height:130px}
+.form-send{align-self:flex-start;display:inline-flex;align-items:center;gap:.5rem;padding:.85rem 2rem;border-radius:99px;background:var(--pink);color:#fff;font-weight:600;font-size:.9rem;border:none;cursor:pointer;transition:all .28s;box-shadow:0 0 20px rgba(236,72,153,.3)}
+.form-send:hover{transform:translateY(-2px);box-shadow:0 0 36px rgba(236,72,153,.5)}
 
-/* FOOTER */
-footer{background:var(--bg2);border-top:1px solid var(--border);padding:2rem 3rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;z-index:1;position:relative}
-.footer-logo{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:800;color:var(--blue)}
-.footer-copy{color:var(--muted);font-size:.75rem}
-.footer-socials{display:flex;gap:.6rem}
-.footer-social{width:32px;height:32px;border-radius:8px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted);text-decoration:none;transition:.2s}
-.footer-social:hover{color:var(--blue);border-color:var(--blue)}
+/* ── FOOTER ── */
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:2rem 3rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.footer-logo{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--pink);font-weight:900}
+.footer-copy{color:var(--muted);font-size:.78rem}
+.footer-socials{display:flex;gap:.7rem}
+.footer-social{width:34px;height:34px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted);text-decoration:none;transition:all .25s}
+.footer-social:hover{color:var(--pink);border-color:var(--pink)}
 
-@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
-.reveal{opacity:0;transform:translateY(24px);transition:opacity .65s,transform .65s}
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s,transform .7s}
 .reveal.visible{opacity:1;transform:translateY(0)}
 
+/* ── RESPONSIVE ── */
 @media(max-width:960px){
   nav{padding:1rem 1.5rem}
-  .nav-links{display:none;flex-direction:column;position:fixed;top:0;right:0;height:100vh;width:70vw;max-width:260px;background:var(--bg2);border-left:1px solid var(--border);padding:5rem 2rem 2rem;gap:1.4rem;z-index:205;transform:translateX(100%);transition:transform .3s}
+  .nav-links{display:none;flex-direction:column;position:fixed;top:0;right:0;height:100vh;width:72vw;max-width:260px;background:var(--bg2);border-left:1px solid var(--border);padding:5rem 2rem 2rem;gap:1.4rem;z-index:205;transform:translateX(100%);transition:transform .3s}
   .nav-links.open{display:flex;transform:translateX(0)}
   .hamburger{display:flex}
-  #hero{grid-template-columns:1fr;min-height:auto}
-  .hero-left{padding:8rem 1.5rem 2rem}
-  .hero-right{padding:2rem 1.5rem 4rem;justify-content:flex-start}
-  .hero-photo-frame{width:clamp(180px,55vw,240px)}
-  section{padding:4rem 1.5rem}
-  .about-grid,.resume-layout,.contact-grid{grid-template-columns:1fr}
-  .projects-grid{grid-template-columns:1fr}
+  section{padding:4.5rem 1.5rem}
   footer{padding:1.5rem;flex-direction:column;align-items:flex-start}
+  .hero-inner{flex-direction:column-reverse;gap:2.5rem;text-align:center}
+  .hero-text{display:flex;flex-direction:column;align-items:center}
+  .hero-subtitle{max-width:100%}
+  .hero-photo-wrap{align-self:center}
+  .hero-photo-frame{width:clamp(180px,55vw,260px)}
+  .about-grid,.resume-layout,.contact-grid{grid-template-columns:1fr}
+  .cert-grid{grid-template-columns:1fr 1fr}
+  .about-img-wrap{max-width:240px;margin:0 auto}
+  .projects-grid{grid-template-columns:1fr}
 }
-@media(max-width:500px){.hero-ctas{flex-direction:column}.hobbies-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:500px){
+  .hero-ctas{flex-direction:column}
+  .btn-pink,.btn-outline{justify-content:center}
+  .hobbies-grid{grid-template-columns:1fr 1fr}
+  .cert-grid{grid-template-columns:1fr}
+}
 </style>
 </head>
 <body>
-<div id="preloader"><div class="pre-logo">Deepika V</div><div class="pre-dots"><div class="pre-dot"></div><div class="pre-dot"></div><div class="pre-dot"></div></div><div class="pre-bar-wrap"><div class="pre-bar"></div></div><div class="pre-label">Loading portfolio…</div></div>
-<div id="exitLoader"><div class="exit-panel"></div><div class="exit-panel"></div><div class="exit-panel"></div><div class="exit-panel"></div></div>
-<div class="cursor" id="cursor"></div><div class="cursor-ring" id="cursorRing"></div>
-<nav><div class="nav-logo">Deepika V</div><ul class="nav-links" id="navLinks"><li><a href="#about">About</a></li><li><a href="#skills">Skills</a></li><li><a href="#projects">Projects</a></li><li><a href="#hobbies">Hobbies</a></li><li><a href="#resume">Resume</a></li><li><a href="#contact">Contact</a></li></ul><div class="hamburger" id="hamburger"><span></span><span></span><span></span></div></nav>
 
-<section id="hero">
-  <div class="hero-left">
-    <div class="hero-tag">Open to opportunities</div>
-    <h1 class="hero-name">Hello,<br>I'm <span class="blue">Deepika V</span></h1>
-    <p class="hero-subtitle">B.Com (General) graduate passionate about turning numbers into insights. Aspiring Data Analyst skilled in Excel, Tally &amp; Power BI.</p>
-    <div class="hero-ctas">
-      <a href="#projects" class="btn-blue">View My Work →</a>
-      <a href="#contact" class="btn-outline-blue">Let's Connect</a>
-    </div>
-    <div class="hero-socials">
-      <a href="https://github.com/deepika-ace" class="social-link" target="_blank"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg></a>
-      <a href="mailto:deepikavenkatesan956@gmail.com" class="social-link"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg></a>
-    </div>
-    <div class="hero-numbers">
-      <div class="hero-num-card"><div class="hero-num">1</div><div class="hero-num-label">Internship</div></div>
-      <div class="hero-num-card"><div class="hero-num">5</div><div class="hero-num-label">Certifications</div></div>
-      <div class="hero-num-card"><div class="hero-num">5+</div><div class="hero-num-label">Projects</div></div>
-      <div class="hero-num-card"><div class="hero-num">91%</div><div class="hero-num-label">B.Com Score</div></div>
-    </div>
+<!-- ══ PRE-LOADER ══ -->
+<div id="preloader">
+  <div class="pre-logo">Deepika V</div>
+  <div class="pre-dots">
+    <div class="pre-dot"></div>
+    <div class="pre-dot"></div>
+    <div class="pre-dot"></div>
   </div>
-  <div class="hero-right">
+  <div class="pre-bar-wrap"><div class="pre-bar"></div></div>
+  <div class="pre-label">Loading portfolio…</div>
+</div>
+
+<!-- ══ PAGE-EXIT LOADER ══ -->
+<div id="exitLoader">
+  <div class="exit-panel"></div>
+  <div class="exit-panel"></div>
+  <div class="exit-panel"></div>
+  <div class="exit-panel"></div>
+</div>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <div class="nav-logo">Deepika V</div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#hobbies">Hobbies</a></li>
+    <li><a href="#resume">Resume</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid-bg"></div>
+  <div class="hero-inner">
+    <!-- LEFT: text -->
+    <div class="hero-text">
+      <div class="hero-tag">Open to opportunities</div>
+      <h1 class="hero-name">Hello, I'm<br><span class="pink">Deepika V </span></h1>
+      <p class="hero-subtitle">B.Com (General) graduate passionate about turning numbers into insights. Aspiring Data Analyst skilled in Excel, Tally & Power BI.</p>
+      <div class="hero-ctas">
+        <a href="#projects" class="btn-pink">View My Work ↓</a>
+        <a href="#contact" class="btn-outline">Let's Connect</a>
+      </div>
+      <div class="hero-socials">
+        <a href="https://github.com/deepika-ace" class="social-link" target="_blank" title="GitHub">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+        </a>
+        <a href="mailto:deepikavenkatesan956@gmail.com" class="social-link" title="Email">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+        </a>
+      </div>
+    </div>
+    <!-- RIGHT: photo -->
     <div class="hero-photo-wrap">
-      <div class="hero-photo-frame"><img src="c:\Users\Nithin Srinivasan\Downloads\Untitled design.jpg" style="width:100%;height:100%;object-fit:cover;object-position:top;" alt="Deepika V"/></div>
-      <div class="hero-photo-badge"><div class="hero-photo-badge-dot"></div><div class="hero-photo-badge-text">Available to hire</div></div>
+      <div class="hero-photo-frame">
+        <img src="c:\Users\Nithin Srinivasan\Downloads\Untitled design.jpg" style="width:100%;height:100%;object-fit:cover;object-position:top;" alt="Deepika  V"/>
+      </div>
+      <div class="hero-photo-badge">
+        <div class="hero-photo-badge-dot"></div>
+        <div class="hero-photo-badge-text">Available to hire</div>
+      </div>
       <div class="hero-photo-tag">B.Com ✦</div>
     </div>
   </div>
   <div class="hero-scroll"><span>scroll</span><div class="scroll-line"></div></div>
 </section>
 
-<section id="about"><div class="container"><div class="about-grid"><div class="about-left"><div class="about-text reveal"><div class="section-label">About Me</div><h2 class="section-title">Commerce Graduate &amp;<br>Aspiring Analyst</h2><p>I'm a B.Com (General) fresher with a strong foundation in accounting and business analytics. I love turning raw data into actionable insights using tools like Excel and Power BI.</p><p>Currently seeking opportunities in Accounting, Finance, or Data Analysis where I can bring fresh perspective and analytical thinking to a team that values precision and curiosity.</p></div><div class="about-stats reveal"><div class="stat"><div class="stat-num">1</div><div class="stat-label">Internship</div></div><div class="stat"><div class="stat-num">5</div><div class="stat-label">Certifications</div></div><div class="stat"><div class="stat-num">5+</div><div class="stat-label">Projects</div></div></div><div class="about-tags reveal"><span class="tag">B.Com General</span><span class="tag">Data Analysis</span><span class="tag">Accounting</span><span class="tag">Tally ERP</span><span class="tag">Power BI</span></div></div><div class="about-cards reveal"><div class="about-card"><h4>🎯 My Goal</h4><p>To begin my career in accounting or data analysis where I can apply my analytical skills, financial knowledge, and problem-solving ability to contribute effectively to business growth.</p></div><div class="about-card"><h4>📊 What I Do</h4><p>I work with financial data, create reports, analyze datasets, and build dashboards using Excel and Power BI to support decision-making.</p></div><div class="about-card"><h4>🧾 Accounting Skills</h4><p>Skilled in financial accounting, GST basics, ledger management, and Tally ERP with a strong understanding of core accounting principles.</p></div><div class="about-card"><h4>📈 Data Analysis Skills</h4><p>Experienced in data cleaning, visualization, and reporting using Excel and Power BI to extract meaningful insights from data.</p></div><div class="about-card"><h4>⚡ Work Approach</h4><p>I focus on accuracy, structured analysis, and understanding business problems before applying data-driven solutions.</p></div></div></div></div></section>
+<!-- ══ ABOUT ══ -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
 
-<section id="skills"><div class="container"><div class="reveal"><div class="section-label">What I Know</div><h2 class="section-title">Skills &amp; Tools</h2><p class="section-sub">A blend of accounting fundamentals and modern data tools to deliver financial clarity.</p></div><div class="skills-grid"><div class="skill-card reveal"><div class="skill-icon">📊</div><div class="skill-title">Accounting &amp; Finance</div><div><div class="skill-bar-label"><span>Financial Accounting</span><span>88%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-w="88"></div></div></div><div><div class="skill-bar-label"><span>Tally ERP 9 / Prime</span><span>82%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-w="82"></div></div></div><div><div class="skill-bar-label"><span>GST &amp; Taxation</span><span>76%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-w="76"></div></div></div></div><div class="skill-card reveal"><div class="skill-icon">📈</div><div class="skill-title">Data Analysis</div><div><div class="skill-bar-label"><span>MS Excel / Advanced</span><span>90%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-w="90"></div></div></div><div><div class="skill-bar-label"><span>Power BI</span><span>72%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-w="72"></div></div></div><div><div class="skill-bar-label"><span>DAX Studio</span><span>68%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-w="68"></div></div></div></div><div class="skill-card reveal"><div class="skill-icon">💻</div><div class="skill-title">Tech &amp; Productivity</div><div><div class="skill-bar-label"><span>MS Office Suite</span><span>93%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-w="93"></div></div></div><div><div class="skill-bar-label"><span>Google Sheets</span><span>85%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-w="85"></div></div></div><div><div class="skill-bar-label"><span>Notion</span><span>48%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-w="48"></div></div></div></div><div class="skill-card reveal"><div class="skill-icon">🧠</div><div class="skill-title">Soft Skills</div><div><div class="skill-bar-label"><span>Analytical Thinking</span><span>92%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-w="92"></div></div></div><div><div class="skill-bar-label"><span>Communication</span><span>85%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-w="85"></div></div></div><div><div class="skill-bar-label"><span>Problem Solving</span><span>88%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-w="88"></div></div></div></div></div></div></section>
+  <!-- LEFT SIDE -->
+  <div class="about-left">
 
-<section id="projects"><div class="container"><div class="reveal"><div class="section-label">My Work</div><h2 class="section-title">Projects</h2><p class="section-sub">Hover or tap any card — view the code on GitHub or read the full case study on Notion.</p></div><div class="projects-grid" id="projectsGrid"></div></div></section>
+    <!-- TEXT (same as yours, don't change content) -->
+    <div class="about-text reveal">
+      <div class="section-label">About Me</div>
+      <h2 class="section-title">Commerce Graduate &amp; Aspiring Analyst</h2>
 
-<section id="hobbies"><div class="container"><div class="reveal"><div class="section-label">Beyond Work</div><h2 class="section-title">Hobbies &amp; Interests</h2><p class="section-sub">What keeps me curious, creative, and balanced outside spreadsheets.</p></div><div class="hobbies-grid"><div class="hobby-card reveal"><span class="hobby-emoji">📚</span><div class="hobby-name">Reading</div><div class="hobby-desc">Finance books &amp; economic journals</div></div><div class="hobby-card reveal"><span class="hobby-emoji">🎵</span><div class="hobby-name">Music</div><div class="hobby-desc">Carnatic classical &amp; indie playlists</div></div><div class="hobby-card reveal"><span class="hobby-emoji">✍️</span><div class="hobby-name">Journaling</div><div class="hobby-desc">Daily reflections &amp; goal tracking</div></div><div class="hobby-card reveal"><span class="hobby-emoji">🧩</span><div class="hobby-name">Puzzles</div><div class="hobby-desc">Logic games &amp; sudoku challenges</div></div><div class="hobby-card reveal"><span class="hobby-emoji">🌿</span><div class="hobby-name">Gardening</div><div class="hobby-desc">Terrace garden &amp; plant care</div></div><div class="hobby-card reveal"><span class="hobby-emoji">📷</span><div class="hobby-name">Photography</div><div class="hobby-desc">Candid moments &amp; urban textures</div></div></div></div></section>
+      <p>I'm a B.Com (General) fresher with a strong foundation in accounting and business analytics. I love turning raw data into actionable insights using tools like Excel and Power BI.</p>
 
-<section id="resume"><div class="container"><div class="reveal"><div class="section-label">My Journey</div><h2 class="section-title">Resume</h2><p class="section-sub">Education, experience, and certifications that built my foundation.</p></div><div class="resume-layout"><div class="resume-col reveal"><h3>🎓 <span>Education</span></h3><div class="timeline"><div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2023–2026</div><div class="timeline-title">B.Com (General)</div><div class="timeline-place">Meenakshi College for Women, Chennai-24</div><div class="timeline-desc">Percentage: 91% — Financial Accounting, Cost Accounting, Auditing &amp; Taxation</div></div><div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2021–2023</div><div class="timeline-title">HSC (Commerce with Accountancy &amp; Business Maths)</div><div class="timeline-place">RKM Sarada Vidyalaya Matric School, Chennai-17</div><div class="timeline-desc">Percentage: 75%</div></div><div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">2021</div><div class="timeline-title">SSLC</div><div class="timeline-place">Sri Tarachand Galada Jain Matriculation School, Chennai-17</div><div class="timeline-desc">Developed curiosity for learning and problem-solving.</div></div></div></div><div class="resume-col reveal"><h3>💼 <span>Internships &amp; Certifications</span></h3><div class="timeline"><div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">May–June 2025</div><div class="timeline-title">Accounting Assistant Intern</div><div class="timeline-place">CodeRays Technologies Private Limited</div><div class="timeline-desc">Assisted with Financial Documentation, Data Entry and Accounting Tasks</div></div><div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">Jan 2025</div><div class="timeline-title">CMA Foundation</div><div class="timeline-place">Institute of Cost Accountants of India</div><div class="timeline-desc">Completed</div></div><div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">Aug 2024</div><div class="timeline-title">Typewriting English (Junior Grade)</div><div class="timeline-place">Board of Technical Examinations, Tamil Nadu</div><div class="timeline-desc">Completed</div></div><div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-year">Aug 2024</div><div class="timeline-title">Barclays LifeSkills Programme</div><div class="timeline-place">GTT Foundation</div><div class="timeline-desc">Completed at Meenakshi College for Women</div></div></div></div></div><div class="reveal" style="text-align:center;margin-top:3rem"><a href="#" class="btn-blue" id="resumeDownload">↓ Download Resume (PDF)</a></div></div></section>
+      <p>Currently seeking opportunities in Accounting, Finance, or Data Analysis where I can bring fresh perspective and analytical thinking to a team that values precision and curiosity.</p>
+    </div>
 
-<section id="contact"><div class="container"><div class="reveal"><div class="section-label">Get In Touch</div><h2 class="section-title">Let's Talk</h2><p class="section-sub">Open to full-time roles, internships, freelance projects, or just a chat about finance &amp; data.</p></div><div class="contact-grid"><div class="contact-info reveal"><p>Whether you have an opportunity, a project idea, or just want to connect — my inbox is always open. I respond within 24 hours.</p><div class="contact-links"><a href="mailto:deepikavenkatesan956@gmail.com" class="contact-link-item"><span class="contact-link-icon">✉️</span><div><div class="contact-link-type">Email</div><div class="contact-link-val">deepikavenkatesan956@gmail.com</div></div></a><a href="https://github.com/deepika-ace" class="contact-link-item" target="_blank"><span class="contact-link-icon">🐙</span><div><div class="contact-link-type">GitHub</div><div class="contact-link-val">github.com/deepika-ace</div></div></a></div></div><div class="contact-form reveal"><div><label class="form-label">Your Name</label><input class="form-input" type="text" placeholder="Your Name"/></div><div><label class="form-label">Email Address</label><input class="form-input" type="email" placeholder="your@mail.com"/></div><div><label class="form-label">Subject</label><input class="form-input" type="text" placeholder="Opportunity / Collaboration"/></div><div><label class="form-label">Message</label><textarea class="form-textarea" placeholder="Tell me about the role or project..."></textarea></div><button class="form-send" id="sendBtn">Send Message →</button></div></div></div></section>
+    <!-- STATS -->
+    <div class="about-stats reveal">
+      <div class="stat">
+        <div class="stat-num">1</div>
+        <div class="stat-label">Internship</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">5</div>
+        <div class="stat-label">Certifications</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">5+</div>
+        <div class="stat-label">Projects</div>
+      </div>
+    </div>
 
-<footer><div class="footer-logo">Deepika V</div><span class="footer-copy">© 2026 Deepika V — Made with 💙 &amp; data</span><div class="footer-socials"><a href="https://github.com/deepika-ace" class="footer-social" target="_blank"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg></a><a href="mailto:deepikavenkatesan956@gmail.com" class="footer-social"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg></a></div></footer>
+    <!-- TAGS / KEYWORDS -->
+    <div class="about-tags">
+      <span class="tag">B.Com General</span>
+      <span class="tag">Data Analysis</span>
+      <span class="tag">Accounting</span>
+      <span class="tag">Tally ERP</span>
+      <span class="tag">Power BI</span>
+    </div>
+
+  </div>
+
+  <!-- RIGHT SIDE -->
+  <div class="about-cards reveal">
+
+    <div class="about-card">
+      <h4>🎯 My Goal</h4>
+      <p>To begin my career in accounting or data analysis where I can apply my analytical skills, financial knowledge, and problem-solving ability to contribute effectively to business growth.</p>
+    </div>
+
+    <div class="about-card">
+      <h4>📊 What I Do</h4>
+      <p>I work with financial data, create reports, analyze datasets, and build dashboards using Excel and Power BI to support decision-making.</p>
+    </div>
+
+    <div class="about-card">
+      <h4>🧾 Accounting Skills</h4>
+      <p>Skilled in financial accounting, GST basics, ledger management, and Tally ERP with a strong understanding of core accounting principles.</p>
+    </div>
+
+    <div class="about-card">
+      <h4>📈 Data Analysis Skills</h4>
+      <p>Experienced in data cleaning, visualization, and reporting using Excel and Power BI to extract meaningful insights from data.</p>
+    </div>
+
+    <div class="about-card">
+      <h4>⚡ Work Approach</h4>
+      <p>I focus on accuracy, structured analysis, and understanding business problems before applying data-driven solutions.</p>
+    </div>
+
+  </div>
+
+</div>
+</section>
+<!-- ══ SKILLS ══ -->
+<section id="skills">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">What I Know</div>
+      <h2 class="section-title">Skills &amp; Tools</h2>
+      <p class="section-sub">A blend of accounting fundamentals and modern data tools to deliver financial clarity.</p>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card reveal">
+        <div class="skill-icon">📊</div><div class="skill-title">Accounting &amp; Finance</div>
+        <div><div class="skill-bar-label"><span>Financial Accounting</span><span>88%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-w="88"></div></div></div>
+        <div><div class="skill-bar-label"><span>Tally ERP 9 / Prime</span><span>82%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-w="82"></div></div></div>
+        <div><div class="skill-bar-label"><span>GST &amp; Taxation</span><span>76%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-w="76"></div></div></div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon">📈</div><div class="skill-title">Data Analysis</div>
+        <div><div class="skill-bar-label"><span>MS Excel / Advanced</span><span>90%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-w="90"></div></div></div>
+        <div><div class="skill-bar-label"><span>Power BI</span><span>72%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-w="72"></div></div></div>
+        <div><div class="skill-bar-label"><span>DAX Studio</span><span>68%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-w="68"></div></div></div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon">💻</div><div class="skill-title">Tech &amp; Productivity</div>
+        <div><div class="skill-bar-label"><span>MS Office Suite</span><span>93%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-w="93"></div></div></div>
+        <div><div class="skill-bar-label"><span>Google Sheets</span><span>85%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-w="85"></div></div></div>
+        <div><div class="skill-bar-label"><span>Notion</span><span>48%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-w="48"></div></div></div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon">🧠</div><div class="skill-title">Soft Skills</div>
+        <div><div class="skill-bar-label"><span>Analytical Thinking</span><span>92%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-w="92"></div></div></div>
+        <div><div class="skill-bar-label"><span>Communication</span><span>85%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-w="85"></div></div></div>
+        <div><div class="skill-bar-label"><span>Problem Solving</span><span>88%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-w="88"></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROJECTS ══ -->
+<section id="projects">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">My Work</div>
+      <h2 class="section-title">Projects</h2>
+      <p class="section-sub">Hover or tap any card — view the code on GitHub or read the full case study on Notion.</p>
+    </div>
+    <div class="projects-grid" id="projectsGrid"></div>
+  </div>
+</section>
+
+<!-- ══ HOBBIES ══ -->
+<section id="hobbies">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Beyond Work</div>
+      <h2 class="section-title">Hobbies &amp; Interests</h2>
+      <p class="section-sub">What keeps me curious, creative, and balanced outside spreadsheets.</p>
+    </div>
+    <div class="hobbies-grid">
+      <div class="hobby-card reveal"><span class="hobby-emoji">📚</span><div class="hobby-name">Reading</div><div class="hobby-desc">Finance books &amp; economic journals</div></div>
+      <div class="hobby-card reveal"><span class="hobby-emoji">🎵</span><div class="hobby-name">Music</div><div class="hobby-desc">Carnatic classical &amp; indie playlists</div></div>
+      <div class="hobby-card reveal"><span class="hobby-emoji">✍️</span><div class="hobby-name">Journaling</div><div class="hobby-desc">Daily reflections &amp; goal tracking</div></div>
+      <div class="hobby-card reveal"><span class="hobby-emoji">🧩</span><div class="hobby-name">Puzzles</div><div class="hobby-desc">Logic games &amp; sudoku challenges</div></div>
+      <div class="hobby-card reveal"><span class="hobby-emoji">🌿</span><div class="hobby-name">Gardening</div><div class="hobby-desc">Terrace garden &amp; plant care</div></div>
+      <div class="hobby-card reveal"><span class="hobby-emoji">📷</span><div class="hobby-name">Photography</div><div class="hobby-desc">Candid moments &amp; urban textures</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ RESUME ══ -->
+<section id="resume">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">My Journey</div>
+      <h2 class="section-title">Resume</h2>
+      <p class="section-sub">Education, experience, and certifications that built my foundation.</p>
+    </div>
+    <div class="resume-layout">
+      <!-- LEFT: Education + Experience -->
+      <div class="resume-col reveal">
+        <h3>🎓 <span>Education</span></h3>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">2023 – 2026</div>
+            <div class="timeline-title">B.Com (General)</div>
+            <div class="timeline-place">Meenakshi College for Women, Chennai-24,</div>
+            <div class="timeline-desc">Percentage: 91% — Specialized in Financial Accounting, Cost Accounting, Auditing &amp; Taxation</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">2021 – 2023</div>
+            <div class="timeline-title">HSC (Commerce with Accountancy & Business Maths)</div>
+            <div class="timeline-place">RKM Sarada Vidyalaya Matric School, Chennai-17</div>
+            <div class="timeline-desc">Percentage: 75% — Strengthened understanding across core subjects.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">2021</div>
+            <div class="timeline-title">SSLC</div>
+            <div class="timeline-place">Sri Tarachand Galada Jain Matriculation School, Chennai-17</div>
+            <div class="timeline-desc">Developed curiosity for learning and problem-solving.</div>
+          </div>
+        </div>
+      </div>
+      <!-- RIGHT: Certifications -->
+       <div class="resume-col reveal">
+        <h3>💼 <span>Internships and Certifications</span></h3>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">May-June, 2025</div>
+            <div class="timeline-title">Accounting Assistant Intern</div>
+            <div class="timeline-place">CodeRays Technologies Private Limited</div>
+            <div class="timeline-desc">Assisted with Financial Documentation, Data Entry and Accounting Tasks</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">Jan 2025</div>
+            <div class="timeline-title">CMA Foundation</div>
+            <div class="timeline-place">Institute of Cost Accountants of India</div>
+            <div class="timeline-desc">Completed</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">Aug, 2024</div>
+            <div class="timeline-title">Typewriting English (Junior Grade)</div>
+            <div class="timeline-place">Board of Technical Examinations, Tamil Nadu</div>
+            <div class="timeline-desc">Completed</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">Aug, 2024</div>
+            <div class="timeline-title">Barclays LifeSkills Programme</div>
+            <div class="timeline-place">GTT Foundation</div>
+            <div class="timeline-desc">Completed at Meenakshi College for Women</div>
+          </div>
+        </div>
+    </div>
+    <div class="reveal" style="text-align:center;margin-top:3rem">
+      <a href="#" class="btn-pink" id="resumeDownload">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download Resume (PDF)
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CONTACT ══ -->
+<section id="contact">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Get In Touch</div>
+      <h2 class="section-title">Let's Talk</h2>
+      <p class="section-sub">Open to full-time roles, internships, freelance projects, or just a chat about finance &amp; data.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <p>Whether you have an opportunity, a project idea, or just want to connect — my inbox is always open. I respond within 24 hours.</p>
+        <div class="contact-links">
+          <a href="mailto:deepikavenkatesan956@gmail.com" class="contact-link-item">
+            <span class="contact-link-icon">✉️</span>
+            <div><div class="contact-link-type">Email</div><div class="contact-link-val">deepikavenkatesan956@gmail.com</div></div>
+          </a>
+          <a href="https://github.com/deepika-ace" class="contact-link-item" target="_blank">
+            <span class="contact-link-icon">🐙</span>
+            <div><div class="contact-link-type">GitHub</div><div class="contact-link-val">https://github.com/deepika-ace</div></div>
+          </a>
+        </div>
+      </div>
+      <div class="contact-form reveal">
+        <div><label class="form-label">Your Name</label><input class="form-input" type="text" placeholder="Your Name"/></div>
+        <div><label class="form-label">Email Address</label><input class="form-input" type="email" placeholder="your@mail.com"/></div>
+        <div><label class="form-label">Subject</label><input class="form-input" type="text" placeholder="Opportunity / Collaboration"/></div>
+        <div><label class="form-label">Message</label><textarea class="form-textarea" placeholder="Tell me about the role or project..."></textarea></div>
+        <button class="form-send" id="sendBtn">Send Message →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">Deepika V</div>
+  <span class="footer-copy">© 2026 Deepika V  — Made with 💖 &amp; data</span>
+  <div class="footer-socials">
+    <a href="https://github.com/deepika-ace" class="footer-social" target="_blank">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+    </a>
+    <a href="mailto:deepikavenkatesan956@gmail.com" class="footer-social">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+    </a>
+  </div>
+</footer>
 
 <script>
-const projects=[{emoji:"📦",cat:"Inventory Analytics",title:"Retail Inventory Dashboard",desc:"Interactive Excel + Power BI dashboard tracking 500+ SKUs, stock turnover ratio, and reorder points for a retail client.",tags:["Excel","Power BI","DAX","Pivot Tables"],github:"https://github.com/deepika-ace/retail-inventory-dashboard",notion:"https://www.notion.so/Retail-Inventory-Dashboard-Case-Study-REPLACE-THIS-ID"},{emoji:"🧾",cat:"Financial Accounting",title:"GST Reconciliation Tracker",desc:"Automated GST 2A vs 3B reconciliation for 15 clients using Excel macros — cutting manual errors by 80% and saving 6 hrs/week.",tags:["Excel","VBA Macros","GST","Tally"],github:"https://github.com/deepika-ace/gst-reconciliation-tracker",notion:"https://www.notion.so/GST-Reconciliation-Tracker-Case-Study-REPLACE-THIS-ID"},{emoji:"📊",cat:"Data Analysis",title:"Sales Trend Analysis — SQL",desc:"Queried 3 years of sales data from MySQL to identify seasonal patterns, top products, and regional performance.",tags:["SQL","MySQL","Python","Pandas"],github:"https://github.com/deepika-ace/sales-trend-sql",notion:"https://www.notion.so/Sales-Trend-Analysis-SQL-Case-Study-REPLACE-THIS-ID"},{emoji:"💰",cat:"Personal Finance",title:"Personal Budget Planner",desc:"Dynamic Google Sheets budget tracker with category-wise spending charts, savings goal progress, and monthly comparison views.",tags:["Google Sheets","Formulas","Charts","Apps Script"],github:"https://github.com/deepika-ace/budget-planner-sheets",notion:"https://www.notion.so/Budget-Planner-Case-Study-REPLACE-THIS-ID"},{emoji:"🏭",cat:"Cost Accounting",title:"Manufacturing Cost Sheet Automation",desc:"Automated material, labor, and overhead cost sheets for a small manufacturer using Excel — reducing calculation time by 70%.",tags:["Excel","Cost Accounting","VLOOKUP","Templates"],github:"https://github.com/deepika-ace/cost-sheet-automation",notion:"https://www.notion.so/Cost-Sheet-Automation-Case-Study-REPLACE-THIS-ID"},{emoji:"📉",cat:"Financial Analysis",title:"Stock Fundamental Screener",desc:"Fundamental analysis screener for NIFTY 50 stocks using Excel — filtering by P/E ratio, ROE, debt-to-equity, and earnings growth.",tags:["Excel","Finance","Fundamental Analysis","NIFTY 50"],github:"https://github.com/deepika-ace/stock-fundamental-screener",notion:"https://www.notion.so/Stock-Fundamental-Screener-Case-Study-REPLACE-THIS-ID"}];
-const notionIcon=`<svg class="notion-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M4.459 4.208c.746.606 1.026.56 2.428.466l13.215-.793c.28 0 .047-.28-.046-.326L17.86 1.968c-.42-.326-.981-.7-2.055-.607L3.01 2.295c-.466.046-.56.28-.374.466zm.793 3.08v13.904c0 .747.373 1.027 1.214.98l14.523-.84c.841-.046.935-.56.935-1.167V6.354c0-.606-.233-.933-.748-.887l-15.177.887c-.56.047-.747.327-.747.933zm14.337.745c.093.42 0 .84-.42.888l-.7.14v10.264c-.608.327-1.168.514-1.635.514-.748 0-.935-.234-1.495-.933l-4.577-7.186v6.952L12.21 19s0 .84-1.168.84l-3.222.186c-.093-.186 0-.653.327-.746l.84-.233V9.854L7.822 9.76c-.094-.42.14-1.026.793-1.073l3.456-.233 4.764 7.279v-6.44l-1.215-.14c-.093-.514.28-.887.747-.933zM1.936 1.035l13.31-.98c1.634-.14 2.055-.047 3.082.7l4.249 2.986c.7.513.934.653.934 1.213v16.378c0 1.026-.373 1.634-1.68 1.726l-15.458.934c-.98.047-1.448-.093-1.962-.747l-3.129-4.06c-.56-.747-.793-1.306-.793-1.96V2.667c0-.839.374-1.54 1.447-1.632z"/></svg>`;
-const grid=document.getElementById('projectsGrid');
-projects.forEach(p=>{const card=document.createElement('div');card.className='project-card reveal';card.innerHTML=`<div class="project-thumb">${p.emoji}<div class="project-overlay"><a href="${p.github}" target="_blank" class="overlay-btn github" onclick="triggerExit(event,'${p.github}')"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>GitHub</a><a href="${p.notion}" target="_blank" class="overlay-btn notion-btn" onclick="triggerExit(event,'${p.notion}')">${notionIcon} Case Study</a></div></div><div class="project-body"><div class="project-cat">${p.cat}</div><div class="project-title">${p.title}</div><div class="project-desc">${p.desc}</div><div class="project-tags">${p.tags.map(t=>`<span class="ptag">${t}</span>`).join('')}</div></div>`;card.addEventListener('click',()=>triggerExitGo(p.github));grid.appendChild(card);});
-function triggerExit(e,url){e.stopPropagation();e.preventDefault();const el=document.getElementById('exitLoader');el.classList.add('active');setTimeout(()=>window.open(url,'_blank'),500);setTimeout(()=>el.classList.remove('active'),1100);}
-function triggerExitGo(url){const el=document.getElementById('exitLoader');el.classList.add('active');setTimeout(()=>window.open(url,'_blank'),500);setTimeout(()=>el.classList.remove('active'),1100);}
-window.addEventListener('load',()=>setTimeout(()=>document.getElementById('preloader').classList.add('hide'),2000));
-const cur=document.getElementById('cursor'),ring=document.getElementById('cursorRing');let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
-function animRing(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing);}animRing();
-const ham=document.getElementById('hamburger'),nl=document.getElementById('navLinks');
-ham.addEventListener('click',()=>nl.classList.toggle('open'));
-nl.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>nl.classList.remove('open')));
-const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');e.target.querySelectorAll('.skill-bar-fill').forEach(b=>b.style.width=b.dataset.w+'%');}});},{threshold:.12});
-document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
-document.getElementById('sendBtn').addEventListener('click',function(){this.textContent='Sent ✓';this.style.background='#22c55e';setTimeout(()=>{this.textContent='Send Message →';this.style.background='';},2800);});
-document.getElementById('resumeDownload').addEventListener('click',function(e){e.preventDefault();this.textContent='No file linked yet';this.style.opacity='.7';setTimeout(()=>{this.textContent='↓ Download Resume (PDF)';this.style.opacity='';},2500);});
+// ══ PROJECTS DATA ══
+// Replace notion: "" with your real Notion page URLs for each project
+const projects = [
+  {
+    emoji:"📦", cat:"Inventory Analytics", title:"Retail Inventory Dashboard",
+    desc:"Interactive Excel + Power BI dashboard tracking 500+ SKUs, stock turnover ratio, and reorder points for a retail client.",
+    tags:["Excel","Power BI","DAX","Pivot Tables"],
+    github:"https://github.com/Deepika V/retail-inventory-dashboard",
+    notion:"https://www.notion.so/Retail-Inventory-Dashboard-Case-Study-REPLACE-THIS-ID"
+  },
+  {
+    emoji:"🧾", cat:"Financial Accounting", title:"GST Reconciliation Tracker",
+    desc:"Automated GST 2A vs 3B reconciliation for 15 clients using Excel macros — cutting manual errors by 80% and saving 6 hrs/week.",
+    tags:["Excel","VBA Macros","GST","Tally"],
+    github:"https://github.com/Deepika V/gst-reconciliation-tracker",
+    notion:"https://www.notion.so/GST-Reconciliation-Tracker-Case-Study-REPLACE-THIS-ID"
+  },
+  {
+    emoji:"📊", cat:"Data Analysis", title:"Sales Trend Analysis — SQL",
+    desc:"Queried 3 years of sales data from MySQL to identify seasonal patterns, top products, and regional performance.",
+    tags:["SQL","MySQL","Python","Pandas"],
+    github:"https://github.com/Deepika V/sales-trend-sql",
+    notion:"https://www.notion.so/Sales-Trend-Analysis-SQL-Case-Study-REPLACE-THIS-ID"
+  },
+  {
+    emoji:"💰", cat:"Personal Finance", title:"Personal Budget Planner",
+    desc:"Dynamic Google Sheets budget tracker with category-wise spending charts, savings goal progress, and monthly comparison views.",
+    tags:["Google Sheets","Formulas","Charts","Apps Script"],
+    github:"https://github.com/Deepika V/budget-planner-sheets",
+    notion:"https://www.notion.so/Budget-Planner-Case-Study-REPLACE-THIS-ID"
+  },
+  {
+    emoji:"🏭", cat:"Cost Accounting", title:"Manufacturing Cost Sheet Automation",
+    desc:"Automated material, labor, and overhead cost sheets for a small manufacturer using Excel — reducing calculation time by 70%.",
+    tags:["Excel","Cost Accounting","VLOOKUP","Templates"],
+    github:"https://github.com/Deepika V/cost-sheet-automation",
+    notion:"https://www.notion.so/Cost-Sheet-Automation-Case-Study-REPLACE-THIS-ID"
+  },
+  {
+    emoji:"📉", cat:"Financial Analysis", title:"Stock Fundamental Screener",
+    desc:"Fundamental analysis screener for NIFTY 50 stocks using Excel — filtering by P/E ratio, ROE, debt-to-equity, and earnings growth.",
+    tags:["Excel","Finance","Fundamental Analysis","NIFTY 50"],
+    github:"https://github.com/Deepika V/stock-fundamental-screener",
+    notion:"https://www.notion.so/Stock-Fundamental-Screener-Case-Study-REPLACE-THIS-ID"
+  }
+];
+
+// Notion SVG icon
+const notionIcon = `<svg class="notion-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M4.459 4.208c.746.606 1.026.56 2.428.466l13.215-.793c.28 0 .047-.28-.046-.326L17.86 1.968c-.42-.326-.981-.7-2.055-.607L3.01 2.295c-.466.046-.56.28-.374.466zm.793 3.08v13.904c0 .747.373 1.027 1.214.98l14.523-.84c.841-.046.935-.56.935-1.167V6.354c0-.606-.233-.933-.748-.887l-15.177.887c-.56.047-.747.327-.747.933zm14.337.745c.093.42 0 .84-.42.888l-.7.14v10.264c-.608.327-1.168.514-1.635.514-.748 0-.935-.234-1.495-.933l-4.577-7.186v6.952L12.21 19s0 .84-1.168.84l-3.222.186c-.093-.186 0-.653.327-.746l.84-.233V9.854L7.822 9.76c-.094-.42.14-1.026.793-1.073l3.456-.233 4.764 7.279v-6.44l-1.215-.14c-.093-.514.28-.887.747-.933zM1.936 1.035l13.31-.98c1.634-.14 2.055-.047 3.082.7l4.249 2.986c.7.513.934.653.934 1.213v16.378c0 1.026-.373 1.634-1.68 1.726l-15.458.934c-.98.047-1.448-.093-1.962-.747l-3.129-4.06c-.56-.747-.793-1.306-.793-1.96V2.667c0-.839.374-1.54 1.447-1.632z"/></svg>`;
+
+// Render project cards
+const grid = document.getElementById('projectsGrid');
+projects.forEach((p, i) => {
+  const card = document.createElement('div');
+  card.className = 'project-card reveal';
+  card.innerHTML = `
+    <div class="project-thumb">${p.emoji}
+      <div class="project-overlay">
+        <a href="${p.github}" target="_blank" class="overlay-btn github" onclick="triggerExit(event,'${p.github}')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+          GitHub
+        </a>
+        <a href="${p.notion}" target="_blank" class="overlay-btn notion-btn" onclick="triggerExit(event,'${p.notion}')">
+          ${notionIcon} Case Study
+        </a>
+      </div>
+    </div>
+    <div class="project-body">
+      <div class="project-cat">${p.cat}</div>
+      <div class="project-title">${p.title}</div>
+      <div class="project-desc">${p.desc}</div>
+      <div class="project-tags">${p.tags.map(t=>`<span class="ptag">${t}</span>`).join('')}</div>
+    </div>`;
+  card.addEventListener('click', () => triggerExitGo(p.github));
+  grid.appendChild(card);
+});
+
+// ══ PAGE-EXIT LOADER ══
+function triggerExit(e, url) {
+  e.stopPropagation();
+  e.preventDefault();
+  const el = document.getElementById('exitLoader');
+  el.classList.add('active');
+  setTimeout(() => { window.open(url,'_blank'); }, 580);
+  setTimeout(() => { el.classList.remove('active'); }, 1200);
+}
+function triggerExitGo(url) {
+  const el = document.getElementById('exitLoader');
+  el.classList.add('active');
+  setTimeout(() => { window.open(url,'_blank'); }, 580);
+  setTimeout(() => { el.classList.remove('active'); }, 1200);
+}
+
+// ══ PRELOADER ══
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('preloader').classList.add('hide');
+  }, 2200);
+});
+
+// ══ CURSOR ══
+const cur = document.getElementById('cursor'), ring = document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; cur.style.left=mx+'px'; cur.style.top=my+'px'; });
+function animRing(){ rx+=(mx-rx)*0.12; ry+=(my-ry)*0.12; ring.style.left=rx+'px'; ring.style.top=ry+'px'; requestAnimationFrame(animRing); }
+animRing();
+
+// ══ HAMBURGER ══
+const ham = document.getElementById('hamburger'), nl = document.getElementById('navLinks');
+ham.addEventListener('click', () => nl.classList.toggle('open'));
+nl.querySelectorAll('a').forEach(a => a.addEventListener('click', () => nl.classList.remove('open')));
+
+// ══ SCROLL REVEAL + SKILL BARS ══
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+      e.target.querySelectorAll('.skill-bar-fill').forEach(b => { b.style.width = b.dataset.w+'%'; });
+    }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+// ══ SEND BUTTON ══
+document.getElementById('sendBtn').addEventListener('click', function(){
+  this.textContent='Sent ✓'; this.style.background='#10b981';
+  setTimeout(() => { this.textContent='Send Message →'; this.style.background=''; }, 2800);
+});
+
+// ══ RESUME DOWNLOAD ══
+document.getElementById('resumeDownload').addEventListener('click', function(e){
+  e.preventDefault();
+  this.textContent='No file linked yet'; this.style.opacity='0.7';
+  setTimeout(() => { this.innerHTML='<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download Resume (PDF)'; this.style.opacity=''; }, 2500);
+});
 </script>
 </body>
 </html>
